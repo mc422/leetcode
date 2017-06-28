@@ -31,9 +31,9 @@ class Solution(object):
         return ans[:k]
 
 
-# solution 2: use heap
+# solution 2: use heap by python lib heapq
 class Solution2(object):
-    def topKFrequent(nums, k):
+    def topKFrequent(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
@@ -44,3 +44,16 @@ class Solution2(object):
         for num in nums:
             cnt[num] += 1
 
+        pair = []
+        for key, val in cnt.iteritems():
+            if len(pair) < k:
+                heapq.heappush(pair, (val, key))
+            else:
+                _ = heapq.heappushpop(pair, (val, key))
+
+        ans = [p[1] for p in pair]
+        return ans
+
+
+s = Solution2()
+print s.topKFrequent([1,2,3,1,2,3,4,6,2,3,6,6,6,6,4,4,3], 2)
